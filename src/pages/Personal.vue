@@ -12,7 +12,7 @@
             <r-row title="实习单位" :model="this.user" value='internShipUnit' v-if="isStudent"/>
             <r-row title="实习地址" :model="this.user" value='workAddress' v-if="isStudent"/>
             <r-row title="工作地址" :model="this.user" value='address' v-if="!isStudent"/>
-            <r-row title="电话" :model="this.user" value='phoneNo' :isLink="isStudent" :onClick="changPhone"/>
+            <r-row title="电话" :model="this.user" value='phoneNo'/>
       </r-body>     
   </r-page>
 </template>
@@ -79,7 +79,7 @@ export default {
                 this.isStudent = Util.isStudent(this);
                 if(this.isStudent){
                     this.user = signList.body.student;
-                    this.user.phoneNo = this.user.phoneNo+"        点击更换";
+                    //this.user.phoneNo = this.user.phoneNo;
                 }else{
                     this.user = signList.body.teacher;
                 }
