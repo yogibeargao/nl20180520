@@ -3,7 +3,7 @@
       <top title="主页"/>
       <r-body>
       <r-image :list="head"/>
-      <div style='margin-top:-15px' v-if="user.userType==0">
+      <div style='margin-top:-15px' v-if="user.userType==0 || user.userType==1">
            <r-card title="消息列表" :list="cardList"/>
       </div>
             <div :style="styleClass">
@@ -83,6 +83,7 @@ export default {
             this.user = JSON.parse(sessionStorage.getItem("user"));
             const identityId = Util.getIdentityId(this);
             const isStudent = Util.isStudent(this);
+            const isTeacher = Util.isTeacher(this);
             if(isStudent){
                   const sharing_url = `location/sharing/unresponsed?studentNo=${identityId}`;
                   const sharing = await this.$http.get(sharing_url);
@@ -91,6 +92,22 @@ export default {
                         this.shareId = sharing.body.id;
                         this.shareShow=true;
                   }
+                  const location_url = `location/sharing/count?studentNo=${identityId}`;
+                  const location = await this.$http.get(location_url);
+                  const message_url = `message/count?identityId=${identityId}`;
+                  const message = await this.$http.get(message_url);
+                  const article_url = `article/count?identityId=${identityId}`;
+                  const article = await this.$http.get(article_url);
+                  const leave_url = `leave/count?identityId=${identityId}`;
+                  const leave = await this.$http.get(leave_url);
+                  this.cardList=[
+                    { 'link': '/notes', 'number': article.body,'text': '实习公告' },
+                    { 'link': '/notes?type=message', 'number': message.body,'text': '实习消息' },
+                    //,{ 'link': '/share', 'number': location.body,'text': '共享消息' }
+                    //{ 'link': '/ill/list', 'number': leave.body,'text': '请假申请' },
+                  ]
+                  
+            }else if(isTeacher){
                   const location_url = `location/sharing/count?studentNo=${identityId}`;
                   const location = await this.$http.get(location_url);
                   const message_url = `message/count?identityId=${identityId}`;
