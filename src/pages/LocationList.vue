@@ -45,17 +45,22 @@ export default {
   },
   methods:{
     async updateStatus(){
-      //const status = await this.$http.post(`location/sharing/response`,param);
-     // if(status){
-       // this.toastText="响应成功";
-       // this.showFlag=true;
-        this.$router.back()
-
-     // }else{
-       // this.toastText="响应失败";
-       // this.type = "warn";
-        //this.showFlag=true;
-      //}
+     if(!_.isEmpty(this.studentId)){
+            const changeStatus = await this.$http.post(`user/changephone/approval?auditReply=1`,this.studentId);
+            if(changeStatus.body){
+                                  ConfirmApi.show(this,{
+                                  title: '',
+                                  content: '操作成功',
+                                });
+                                this.search(this.condition);
+                              }else{
+                                ConfirmApi.show(this,{
+                                  title: '',
+                                  content: '操作失败',
+                                });
+            }
+      }
+      this.$router.back();
    },
    async search(condition){
                   if(condition==0||condition==1){
@@ -66,7 +71,7 @@ export default {
                   const status = await this.$http.post(`online/signin/list`,param);
                   const status_data = [];
                   _.each(status.body,(student,index)=>{
-                      status_data.push([{'text':student.studentName},{'text':student.signAddress?student.signAddress:'未签到',"link":"updateStatus"},{'text':student.signDate?student.signDate.substring(11,16):''}])
+                      status_data.push([{'text':student.studentName},{'studentId':student.id,'text':student.signAddress?student.signAddress:'未签到',"onClick":this.updateStatus},{'text':student.signDate?student.signDate.substring(11,16):''}])
                   })
                   this.data.body = status_data;
           }
