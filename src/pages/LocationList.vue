@@ -44,6 +44,19 @@ export default {
     
   },
   methods:{
+    async updateStatus(){
+      //const status = await this.$http.post(`location/sharing/response`,param);
+     // if(status){
+       // this.toastText="响应成功";
+       // this.showFlag=true;
+        this.$router.back()
+
+     // }else{
+       // this.toastText="响应失败";
+       // this.type = "warn";
+        //this.showFlag=true;
+      //}
+   },
    async search(condition){
                   if(condition==0||condition==1){
                       this.condition.status = condition;
@@ -53,7 +66,7 @@ export default {
                   const status = await this.$http.post(`online/signin/list`,param);
                   const status_data = [];
                   _.each(status.body,(student,index)=>{
-                      status_data.push([{'text':student.studentName},{'text':student.signAddress?student.signAddress:'未签到'},{'text':student.signDate?student.signDate.substring(11,16):''}])
+                      status_data.push([{'text':student.studentName},{'text':student.signAddress?student.signAddress:'未签到',"link":"updateStatus"},{'text':student.signDate?student.signDate.substring(11,16):''}])
                   })
                   this.data.body = status_data;
           }
