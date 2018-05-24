@@ -14,11 +14,13 @@
 </template>
 
 <script>
+import {ConfirmApi } from "rainbow-mobile-core";
 import Util from "../util/util";
 import  Search from '../components/Search.vue';
 
 export default {
   components: {
+    ConfirmApi,
     Search
   },
   data() {
@@ -44,9 +46,8 @@ export default {
     
   },
   methods:{
-    async updateStatus(){
-     if(!_.isEmpty(this.studentId)){
-            const changeStatus = await this.$http.post(`user/changephone/approval?auditReply=1`,this.studentId);
+    async updateStatus(item){
+     const changeStatus = await this.$http.post(`user/changephone/approval?auditReply=1`,[item.studentId]);
             if(changeStatus.body){
                                   ConfirmApi.show(this,{
                                   title: '',
@@ -59,7 +60,7 @@ export default {
                                   content: '操作失败',
                                 });
             }
-      }
+
       this.$router.back();
    },
    async search(condition){
