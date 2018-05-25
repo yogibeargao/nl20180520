@@ -5,17 +5,15 @@
              <r-input title="分数:" :readonly="true"   :max="100" :min="0"  :model="this" value="score" :isNumber="true"/>
              <r-textarea title="评价:" :readonly="true"   :model="this" value="comments" :height="600" :max="600"></r-textarea>
        </r-body>
-
-             <r-tab-bar>
-                  <r-cell type="row" :vertical="true">
+             <r-tab-bar v-if="!score">
+                   <r-cell type="row" :vertical="true">
                                 <r-cell >
                                   <r-box>
                                       <r-button :onClick="download">下载实习小结模板</r-button>
                                   </r-box>
                                 </r-cell>
                     </r-cell>
-             </r-tab-bar>
-             <r-tab-bar v-if="!score">
+
                   <div class="example-simple">
     <div class="upload" >
       <ul>
