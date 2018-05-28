@@ -6,14 +6,8 @@
              <r-textarea title="评价:" :readonly="true"   :model="this" value="comments" :height="600" :max="600"></r-textarea>
        </r-body>
              <r-tab-bar v-if="!score">
-                   <r-cell type="row" :vertical="true">
-                                <r-cell >
-                                  <r-box>
-                                      <r-button :onClick="download">下载实习小结模板</r-button>
-                                  </r-box>
-                                </r-cell>
-                    </r-cell>
 
+               
                   <div class="example-simple">
     <div class="upload" >
       <ul>
@@ -50,6 +44,13 @@
           停止上传
         </button>
       </div>
+      <r-cell type="row" :vertical="true">
+          <r-cell >
+            <r-box>
+                <r-button :onClick="download">下载实习小结模板</r-button>
+            </r-box>
+          </r-cell>
+      </r-cell>
     </div>
     
   </div>
