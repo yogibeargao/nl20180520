@@ -59,7 +59,8 @@
 </template>
 
 <script>
-import FileUpload from 'vue-upload-component'
+import FileUpload from 'vue-upload-component';
+import Vue from 'vue';
 export default {
   components: {
     FileUpload,
@@ -75,7 +76,7 @@ export default {
   methods: {
      async download(){
         const id = this.$route.query.id;
-        window.location.href=Vue.http.options.root+"/intern/summary/download?internSummaryId="+id;
+        window.location.href=Vue.http.options.root+"/intern/summary/template/download";
       },
       async customAction(file, component){
        const self = this;

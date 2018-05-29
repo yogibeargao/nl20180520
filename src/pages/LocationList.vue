@@ -47,7 +47,7 @@ export default {
   },
   methods:{
     async updateStatus(item){
-     const changeStatus = await this.$http.post(`user/changephone/approval?auditReply=1`,[item.studentId]);
+     const changeStatus = await this.$http.post(`/online/signin/unwanted`,[item.id]);
             if(changeStatus.body){
                                   ConfirmApi.show(this,{
                                   title: '',
@@ -72,7 +72,7 @@ export default {
                   const status = await this.$http.post(`online/signin/list`,param);
                   const status_data = [];
                   _.each(status.body,(student,index)=>{
-                      status_data.push([{'text':student.studentName},{'studentId':student.id,'text':student.signAddress?student.signAddress:'未签到',"onClick":this.updateStatus},{'text':student.signDate?student.signDate.substring(11,16):''}])
+                      status_data.push([{'text':student.studentName},{'id':student.id,'text':student.signAddress?student.signAddress:'未签到',"onClick":this.updateStatus},{'text':student.signDate?student.signDate.substring(11,16):''}])
                   })
                   this.data.body = status_data;
           }
