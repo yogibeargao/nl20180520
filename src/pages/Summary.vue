@@ -75,7 +75,6 @@ export default {
   },
   methods: {
      async download(){
-        const id = this.$route.query.id;
         window.location.href=Vue.http.options.root+"/intern/summary/template/download";
       },
       async customAction(file, component){
